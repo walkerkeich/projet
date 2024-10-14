@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+
+
+    <h1>Profil de {{ profile.user.username }}</h1>
+
+    <p><strong>Nom d'utilisateur:</strong> {{ profile.user.username }}</p>
+    <p><strong>Email:</strong> {{ profile.user.email }}</p>
+    <p><strong>Biographie:</strong> {{ profile.Biographie }}</p>
+
+    {% if profile.photo %}
+        <p><strong>Photo de profil:</strong></p>
+        <img src="{{ profile.photo.url }}" alt="Photo de {{ profile.user.username }}">
+    {% else %}
+        <p>Aucune photo de profil.</p>
+    {% endif %}
+
+    <p><strong>Type de profil:</strong> {{ profile.get_type_profile_display }}</p>
+
+    <p><a href="{% url 'update_profile' %}" class="btn btn-primary"> modifier votre profile</a>
+
+{% endblock  %}

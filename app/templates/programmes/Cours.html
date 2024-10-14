@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <h2>Cours pour la matière {{ matiere.nom }}</h2>
+
+    <div class="row">
+        {% if cours %}
+            {% for cour in cours %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 d-flex flex-column">
+                    <a href="{% url 'app:detail_cours' slug=cour.slug %}" class="text-decoration-none text-dark">
+                        <div class="card-body flex-grow-1 d-flex flex-column justify-content-between">
+                            <div>
+                                <h5 class="card-title">Chapitre {{ cour.position }}: {{ cour.nom }}</h5>
+                            </div>
+                            <!-- Bouton cliquable sur toute la card -->
+                            <div class="mt-3">
+                                <a href="{% url 'app:detail_cours' slug=cour.slug %}" class="btn btn-primary">Voir le cours</a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>Aucun cours disponible pour cette matière.</p>
+        {% endif %}
+    </div>
+{% else %}
+    <p>Connectez-vous pour suivre le cours</p><br>
+    <a href="{% url 'Connexion' %}" class="btn btn-primary">Connectez-vous !</a>
+{% endif %}
+
+{% if user.is_superuser %}
+    <a href="{% url 'app:CreerCours' filiere_slug=matiere.filiere.slug matiere_slug=matiere.slug %}" class="btn btn-success mt-3">Créer un cours</a>
+{% endif %}
+{% endblock %}

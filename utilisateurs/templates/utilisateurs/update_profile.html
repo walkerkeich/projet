@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12">
+        {% if inscrit %}
+            <h2>Modifier votre profil</h2>
+        {% endif %}
+        {% load crispy_forms_tags %}
+        <form method="POST" action="" enctype="multipart/form-data">  <!-- Ajout de enctype pour l'upload de fichiers -->
+            {% csrf_token %}
+            {{ form2|crispy }}
+            <input type="submit" value="Confirmer" class="btn btn-primary"><br>
+        </form>
+        <a href="{% url 'user_profile'  %}" class='btn btn-alert' > Retour </a>
+        <!-- Affichage des messages -->
+        {% if messages %}
+            <ul class="list-unstyled">
+                {% for message in messages %}
+                    <li class="alert alert-{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

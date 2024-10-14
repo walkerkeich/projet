@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Devoirs pour l'exercice : {{ exercice.titre }}</h2>
+
+{% if messages %}
+    <div class="alert-messages">
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if devoirs %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Étudiant</th>
+                <th>Date de dépôt</th>
+                <th>Fichier</th>
+                {% if user.is_authenticated %}
+                    <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for devoir in devoirs %}
+            <tr>
+                <td>{{ devoir.utilisateur.username }}</td>
+                <td>{{ devoir.date_depot }}</td>
+
+                <!-- Afficher le fichier uniquement pour l'étudiant concerné ou un superutilisateur -->
+                <td>
+                    {% if devoir.utilisateur == user or user.is_superuser %}
+                    <a href="{{ devoir.fichier.url }}" download>Télécharger le devoir</a>
+                    {% else %}
+                    <p>Vous ne pouvez pas voir ce fichier</p>
+                    {% endif %}
+                </td>
+
+                <!-- Afficher les actions de modification et de suppression uniquement pour l'étudiant concerné -->
+                {% if devoir.utilisateur == user and not exercice.deadline_passed %}
+                <td>
+                    <!-- Formulaire de modification -->
+                    <form method="post" enctype="multipart/form-data" action="{% url 'app:modifier_devoir' devoir_id=devoir.id %}">
+                        {% csrf_token %}
+                        <input type="file" name="nouveau_devoir" class="form-control mb-2" required>
+                        <button type="submit" class="btn btn-warning">Modifier</button>
+                    </form>
+
+                    <!-- Bouton de suppression -->
+                    <form method="post" action="{% url 'app:supprimer_devoir' devoir_id=devoir.id %}" onsubmit="return confirm('Voulez-vous vraiment supprimer ce devoir ?');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger mt-2">Supprimer</button>
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Aucun devoir n'a été déposé pour cet exercice.</p>
+{% endif %}
+
+<a href="{% url 'app:detail_cours' slug=exercice.cours.slug %}" class="btn btn-primary">Retour au cours</a>
+{% endblock %}

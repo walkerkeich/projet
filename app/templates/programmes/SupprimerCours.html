@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Êtes-vous sûr de vouloir supprimer le cours : {{ object.nom }} ?</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
+</form>
+
+<a href="{% url 'app:detail_cours' slug=object.slug %}" class="btn btn-secondary">Annuler</a>
+{% endblock %}

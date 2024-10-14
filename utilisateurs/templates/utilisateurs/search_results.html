@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Résultats de recherche pour "{{ query }}"</h2>
+
+    <!-- Si des cours sont trouvés -->
+    {% if cours %}
+    <h3>Cours trouvés :</h3>
+    <ul>
+        {% for cour in cours %}
+        <li><a href="{% url 'app:detail_cours' slug=cour.slug %}">{{ cour.nom }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Aucun cours trouvé.</p>
+    {% endif %}
+
+    <!-- Si des matières sont trouvées -->
+    {% if matiere %}
+    <h3>Matières trouvées :</h3>
+    <ul>
+        {% for matiere in matiere %}
+        <li><a href="{% url 'app:cours' category=matiere.filiere.slug slug=matiere.slug %}">{{ matiere.nom }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Aucune matière trouvée.</p>
+    {% endif %}
+
+    <!-- Si des filières sont trouvées -->
+    {% if filiere %}
+    <h3>Filières trouvées :</h3>
+    <ul>
+        {% for filiere in filiere %}
+        <li><a href="{% url 'app:matiere' slug=filiere.slug %}">{{ filiere.nom }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Aucune filière trouvée.</p>
+    {% endif %}
+</div>
+{% endblock %}

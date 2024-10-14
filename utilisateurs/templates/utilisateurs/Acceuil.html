@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* Style pour l'arrière-plan */
+    body, html {
+        height: 100%; /* S'assurer que le body et le html prennent toute la hauteur */
+        margin: 0; /* Supprimer les marges par défaut */
+        padding: 0; /* Supprimer le padding par défaut */
+    }
+
+    .bg-image {
+        background-image: url('https://st4.depositphotos.com/20363444/38732/i/450/depositphotos_387320958-stock-photo-selective-focus-pretty-adult-freelancer.jpg');
+        background-size: cover; /* Couvrir toute la zone */
+        background-position: center; /* Centrer l'image */
+        position: absolute; /* Positionner l'image derrière tout le contenu */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1; /* Envoyer l'image derrière les autres éléments */
+    }
+
+    /* Couleurs pour les sections */
+    .section {
+        background-color: rgba(255, 255, 255, 0.8); /* blanc avec transparence */
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+        position: relative;
+        z-index: 2; /* Au-dessus de l'image d'arrière-plan */
+    }
+
+    .btn-primary {
+        background-color: #007bff; /* Couleur personnalisée */
+        border-color: #007bff;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d; /* Couleur personnalisée */
+        border-color: #6c757d;
+    }
+
+    blockquote {
+        background-color: #f8f9fa; /* Couleur de fond pour les témoignages */
+        border-left: 5px solid #007bff;
+        padding: 15px;
+        border-radius: 5px;
+    }
+
+    h1, h2, h3 {
+        color: #343a40; /* Couleur des titres */
+    }
+
+    p.lead {
+        color: #495057; /* Couleur du texte principal */
+    }
+
+    @keyframes colorChange {
+        0% { color: rgb(0, 0, 0); }
+        33% { color: rgb(233, 230, 38); }
+
+        100% { color: rgb(0, 0, 0); }
+    }
+
+    .color-transition {
+        animation: colorChange 7s infinite; /* Durée de 3 secondes et boucle infinie */
+    }
+
+    .text-color{
+        color: rgb(255, 255, 255);
+    }
+</style>
+
+<div class="bg-image"></div> <!-- Image d'arrière-plan -->
+
+<div class="container text-center mt-5">
+    <h4 class="display-4 color-transition" style="font-family: 'Helvetica', sans-serif;">
+        <strong>Bienvenue sur notre plateforme e-learning !</strong>
+    </h4>
+    
+
+    <div class="mt-4">
+        <a href="{% url 'app:Filieres' %}" class="btn btn-primary btn-lg">Voir la liste des filières</a>
+    </div>
+</div>
+
+
+
+
+    <div class="mt-5 section">
+        <h2>Pourquoi choisir notre plateforme ?</h2>
+        <p class="text-muted">Notre plateforme e-learning est conçue pour offrir une expérience d'apprentissage immersive et interactive. Que vous soyez un étudiant ou un professionnel, nos cours sont adaptés à tous les niveaux et vous permettent d'apprendre à votre rythme.</p>
+    </div>
+
+    
+        </div>
+    </div>
+</div>
+{% endblock %}

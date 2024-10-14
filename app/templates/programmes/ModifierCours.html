@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Modifier le Cours : {{ cours.nom }}</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+</form>
+
+<a href="{% url 'app:annuler_modification' slug=cours.slug %}" class="btn btn-danger">Annuler la modification</a>
+{% endblock %}

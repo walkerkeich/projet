@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Forum du Cours : {{ cours.nom }}</h2>
+
+<h3>Messages :</h3>
+<div>
+    {% for message in messages %}
+        <div>
+            <strong>{{ message.user.username }}:</strong> {{ message.contenu }} <br>
+            <small>{{ message.date_creation }}</small>
+        </div>
+    {% empty %}
+        <p>Aucun message encore.</p>
+    {% endfor %}
+</div>
+
+<h3>Ajouter un Message :</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Envoyer</button>
+</form>
+
+<a href="{% url 'app:cours' category=cours.filiere.slug slug=cours.matiere.slug %}">Retour aux cours de la matière</a>
+{% endblock %}

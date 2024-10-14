@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Matières pour la filière {{ filiere.nom }}</h2>
+
+<div class="row">
+    {% if matieres %}
+        {% for matiere in matieres %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 d-flex flex-column">
+                <a href="{% url 'app:cours' category=filiere.slug slug=matiere.slug %}" class="text-decoration-none text-dark">
+                    
+                    <!-- Redimensionnement de l'image à 600x400 pixels -->
+                    <div class="card-img-container" style="width: 100%; height: 200px; overflow: hidden;">
+                        {% if matiere.img %}
+                        <img src="{{ matiere.img.url }}" class="card-img-top" alt="{{ matiere.nom }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        {% else %}
+                        <img src="{% static 'images/default.jpg' %}" class="card-img-top" alt="{{ matiere.nom }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        {% endif %}
+                    </div>
+
+                    <div class="card-body flex-grow-1 d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title">{{ matiere.nom }}</h5>
+                            <p class="card-text">{{ matiere.description|truncatewords:20 }}</p>
+                        </div>
+                        <!-- Bouton "Suivre" en bas de la carte -->
+                         
+                        <a href="{% url 'app:cours' category=filiere.slug slug=matiere.slug %}" class="btn btn-primary mt-3">Suivre</a>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>Aucune matière disponible pour cette filière.</p>
+    {% endif %}
+</div>
+
+<a href="{% url 'app:Filieres' %}" class="btn btn-primary mt-4">Retour aux filières</a>
+{% endblock %}

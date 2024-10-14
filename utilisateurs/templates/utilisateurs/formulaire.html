@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12">
+    {% if inscrit %}
+        <h2>VOUS ÊTES DÉJÀ INSCRIT</h2>
+    {% endif %}
+    {% load crispy_forms_tags %}
+        <form method="POST" action="">  
+            
+            {% csrf_token %}
+            {{ form1|crispy }}
+            {{ form2|crispy }}
+            <input type="submit" value="S'inscrire" class="btn btn-primary"> 
+        </form>
+    </div>
+</div>
+{% endblock %}

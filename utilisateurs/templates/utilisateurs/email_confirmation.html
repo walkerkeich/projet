@@ -1,0 +1,17 @@
+{% block content %}
+<div class="container">
+    <div class="header">
+        <h1>Confirmation de votre inscription</h1>
+    </div>
+    <div class="content">
+        <p>Bonjour {{ username }},</p>
+        <p>Merci de vous être inscrit sur notre plateforme ! Pour finaliser votre inscription, veuillez confirmer votre adresse e-mail.</p>
+        <p>Pour confirmer votre inscription, cliquez sur le bouton ci-dessous :</p>
+        <p style="text-align: center;">
+            <a href="{{ domaine }}/confirmation/{{ uid }}/{{ token }}/">Confirmez votre inscription</a>
+        </p>
+        <p>Si vous n'avez pas créé de compte, vous pouvez ignorer cet e-mail.</p>
+        <p>Merci,<br>L'équipe Elearning</p>
+    </div>
+</div>
+{% endblock %}
